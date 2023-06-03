@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const authRoutes = require('./routes/authRoute');
+const requireAuth = require('./middlewares/requireAuth');
 
 const app = express();
 
@@ -20,7 +21,7 @@ mongoose.connection.on('error', () => {
   console.log('Error connecting to Mongo.');
 });
 
-app.get('/', (req, res) => {
+app.get('/', requireAuth, (req, res) => {
   res.send('Hello, world!');
 });
 
